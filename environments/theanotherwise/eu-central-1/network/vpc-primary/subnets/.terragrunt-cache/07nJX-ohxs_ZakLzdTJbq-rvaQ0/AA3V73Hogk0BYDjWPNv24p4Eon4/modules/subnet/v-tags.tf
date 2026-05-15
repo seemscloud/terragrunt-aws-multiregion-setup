@@ -1,4 +1,4 @@
-variable "v-tags" {
+variable "tags" {
   type    = map(string)
   default = {}
 }

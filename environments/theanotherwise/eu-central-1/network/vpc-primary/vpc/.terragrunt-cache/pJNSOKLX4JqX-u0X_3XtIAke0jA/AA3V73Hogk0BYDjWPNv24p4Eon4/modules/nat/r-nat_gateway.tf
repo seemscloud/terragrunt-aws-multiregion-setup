@@ -1,10 +1,10 @@
-resource "aws_nat_gateway" "r-this" {
-  for_each = var.v-nats
+resource "aws_nat_gateway" "this" {
+  for_each = var.nats
 
-  allocation_id = aws_eip.r-this[each.key].id
+  allocation_id = aws_eip.this[each.key].id
   subnet_id     = each.value.subnet_id
 
-  tags = merge(var.v-tags, each.value.tags, {
-    Name = each.key
+  tags = merge(var.tags, each.value.tags, {
+    Name = coalesce(each.value.name, each.key)
   })
 }

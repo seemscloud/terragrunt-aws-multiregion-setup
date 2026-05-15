@@ -1,12 +1,12 @@
-resource "aws_subnet" "r-this" {
-  for_each = var.v-subnets
+resource "aws_subnet" "this" {
+  for_each = var.subnets
 
-  vpc_id                  = var.v-vpc-id
+  vpc_id                  = var.vpc_id
   cidr_block              = each.value.cidr_block
   availability_zone       = each.value.availability_zone
   map_public_ip_on_launch = each.value.map_public_ip_on_launch
 
-  tags = merge(var.v-tags, each.value.tags, {
-    Name = each.key
+  tags = merge(var.tags, each.value.tags, {
+    Name = coalesce(each.value.name, each.key)
   })
 }

@@ -7,10 +7,10 @@ terraform {
 }
 
 inputs = {
-  v-vpc = {
+  vpc = {
     name       = "primary"
     cidr_block = "10.1.0.0/16"
   }
 
-  v-internet-gateway-enabled = true
+  internet_gateway_enabled = true
 }

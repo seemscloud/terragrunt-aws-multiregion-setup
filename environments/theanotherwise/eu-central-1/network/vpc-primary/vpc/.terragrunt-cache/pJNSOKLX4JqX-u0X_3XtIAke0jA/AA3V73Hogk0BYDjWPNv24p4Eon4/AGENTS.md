@@ -44,8 +44,8 @@ No comments anywhere in `.tf`, `.hcl`, or any other code file. No banners, no se
 Split each module into many small files, one element per file:
 
 - `r-<resource_type>.tf` — one file per resource type, with the `aws_` provider prefix stripped. Examples: `r-vpc.tf`, `r-subnet.tf`, `r-route.tf`, `r-route_table.tf`, `r-internet_gateway.tf`, `r-nat_gateway.tf`, `r-eip.tf`. Multiple `resource` blocks of the same type live in the same file.
-- `v-<variable_name>.tf` — one file per `variable` block. The variable itself is also prefixed with `v-` (e.g. `variable "v-vpc"`, `variable "v-subnets"`).
-- Resource labels (the second positional argument to `resource`) are prefixed with `r-`: `resource "aws_vpc" "r-this"`, `resource "aws_subnet" "r-public"`. Dashes in HCL identifiers are valid.
+- `v-<variable_name>.tf` — one file per `variable` block. The `v-` prefix belongs only in the filename; variable names inside HCL do not use this prefix.
+- Resource files keep the `r-<resource_type>.tf` filename convention. Resource labels inside HCL do not use the `r-` prefix; use labels such as `this`, `public`, or other concise names that describe the resource instance.
 - Variables of grouped configuration use `type = object({ ... })` to keep related fields together.
 - `outputs.tf` and `versions.tf` stay flat (no prefix).
 - Locals live in the `r-*.tf` file of the resource that needs them, not in a separate `locals.tf`.
