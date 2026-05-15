@@ -7,7 +7,7 @@ terraform {
 }
 
 dependency "eu_central_1_vpc" {
-  config_path = "../../../../eu-central-1/network/vpc-primary/vpc"
+  config_path = "../../../network/vpc-primary/vpc"
 
   mock_outputs = {
     vpc_id         = "vpc-mock-eu-central-1"
@@ -30,7 +30,7 @@ dependency "eu_west_1_vpc" {
 
 inputs = {
   route53_zone = {
-    name = "aws.seems.cloud"
+    name = "eks-primary.eks.eu-central-1.aws.seems.cloud"
     vpcs = [
       {
         vpc_id     = dependency.eu_central_1_vpc.outputs.vpc_id

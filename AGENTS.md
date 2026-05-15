@@ -56,8 +56,8 @@ State is stored remotely and the path inside the bucket mirrors the directory la
 
 ## Current project structure
 
-This repository is a Terragrunt/OpenTofu AWS infrastructure project. Reusable Terraform code lives in `modules/`, with one focused AWS resource type per module, while deployable state leaves live under `environments/theanotherwise/<region>/...` or `environments/theanotherwise/global/...`.
+This repository is a Terragrunt/OpenTofu AWS infrastructure project. Reusable Terraform code lives in `modules/`, with one focused AWS resource type per module, while deployable state leaves live under `environments/theanotherwise/<region>/...`.
 
-The primary regional layout currently uses `network/vpc-primary/*` for VPC, subnet, NAT, route table, route, and route table association states. EKS cluster components live under `compute/eks-primary/*`, Kubernetes workloads for that cluster live under `compute/eks-primary/workloads/*`, and private DNS for `aws.seems.cloud` is represented from `global/dns/aws-seems-cloud/*` with VPC associations for the regional primary VPCs.
+The primary regional layout currently uses `network/vpc-primary/*` for VPC, subnet, NAT, route table, route, and route table association states. EKS cluster components live under `compute/eks-primary/*`, Kubernetes workloads for that cluster live under `compute/eks-primary/workloads/*`, and private DNS for EKS workloads is represented from regional `dns/eks-primary/*` states with VPC associations for both regional primary VPCs.
 
 ## Imported Claude Cowork project instructions
