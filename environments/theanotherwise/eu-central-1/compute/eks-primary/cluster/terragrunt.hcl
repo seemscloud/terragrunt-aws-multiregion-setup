@@ -60,6 +60,6 @@ inputs = {
     bootstrap_cluster_creator_admin_permissions = true
     endpoint_private_access                     = true
     endpoint_public_access                      = true
-    public_access_cidrs                         = [format("%s/32", dependency.mgmt_instance.outputs.public_ips["mgmt"])]
+    public_access_cidrs                         = ["0.0.0.0/0"]
   }
 }

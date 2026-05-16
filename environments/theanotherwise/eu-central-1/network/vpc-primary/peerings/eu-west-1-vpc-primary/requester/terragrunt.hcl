@@ -7,7 +7,7 @@ terraform {
 }
 
 dependency "eu_central_1_vpc" {
-  config_path = "../vpc"
+  config_path = "../../../vpc"
 
   mock_outputs = {
     vpc_id         = "vpc-mock-eu-central-1"
@@ -18,7 +18,7 @@ dependency "eu_central_1_vpc" {
 }
 
 dependency "eu_west_1_vpc" {
-  config_path = "../../../../eu-west-1/network/vpc-primary/vpc"
+  config_path = "../../../../../../eu-west-1/network/vpc-primary/vpc"
 
   mock_outputs = {
     vpc_id         = "vpc-mock-eu-west-1"

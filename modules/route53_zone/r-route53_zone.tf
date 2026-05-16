@@ -11,4 +11,8 @@ resource "aws_route53_zone" "this" {
   }
 
   tags = merge(var.tags, var.route53_zone.tags)
+
+  lifecycle {
+    ignore_changes = [vpc]
+  }
 }

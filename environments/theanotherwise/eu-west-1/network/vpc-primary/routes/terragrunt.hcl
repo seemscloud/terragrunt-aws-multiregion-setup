@@ -46,8 +46,8 @@ dependency "nat" {
   mock_outputs_merge_strategy_with_state  = "deep_map_only"
 }
 
-dependency "vpc_peering_from_eu_central_1" {
-  config_path = "../peering-from-eu-central-1"
+dependency "peer_eu_central_1_vpc_primary" {
+  config_path = "../peerings/eu-central-1-vpc-primary/accepter"
 
   mock_outputs = {
     vpc_peering_connection_id = "pcx-0123456789abcdef0"
@@ -55,6 +55,13 @@ dependency "vpc_peering_from_eu_central_1" {
   }
   mock_outputs_allowed_terraform_commands = ["init", "validate", "plan", "destroy"]
   mock_outputs_merge_strategy_with_state  = "deep_map_only"
+}
+
+locals {
+  private_route_table_keys                 = ["private-eu-west-1a", "private-eu-west-1b", "private-eu-west-1c"]
+  lb_route_table_keys                      = ["lb-eu-west-1a", "lb-eu-west-1b", "lb-eu-west-1c"]
+  eu_central_1_vpc_primary_private_subnets = ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24"]
+  eu_central_1_vpc_primary_lb_subnets      = ["10.0.20.0/24", "10.0.21.0/24", "10.0.22.0/24"]
 }
 
 inputs = {
@@ -87,13 +94,17 @@ inputs = {
       }
     },
     {
-      for route in setproduct(
-        ["private-eu-west-1a", "private-eu-west-1b", "private-eu-west-1c"],
-        ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24", "10.0.20.0/24", "10.0.21.0/24", "10.0.22.0/24"]
-        ) : "${route[0]}-eu-central-1-${replace(replace(route[1], ".", "-"), "/", "-")}" => {
+      for route in setproduct(local.private_route_table_keys, local.eu_central_1_vpc_primary_lb_subnets) : "${route[0]}-eu-central-1-vpc-primary-${replace(replace(route[1], ".", "-"), "/", "-")}" => {
         route_table_id            = dependency.route_tables.outputs.route_table_ids[route[0]]
         destination_cidr_block    = route[1]
-        vpc_peering_connection_id = dependency.vpc_peering_from_eu_central_1.outputs.vpc_peering_connection_id
+        vpc_peering_connection_id = dependency.peer_eu_central_1_vpc_primary.outputs.vpc_peering_connection_id
+      }
+    },
+    {
+      for route in setproduct(local.lb_route_table_keys, local.eu_central_1_vpc_primary_private_subnets) : "${route[0]}-eu-central-1-vpc-primary-${replace(replace(route[1], ".", "-"), "/", "-")}" => {
+        route_table_id            = dependency.route_tables.outputs.route_table_ids[route[0]]
+        destination_cidr_block    = route[1]
+        vpc_peering_connection_id = dependency.peer_eu_central_1_vpc_primary.outputs.vpc_peering_connection_id
       }
     }
   )

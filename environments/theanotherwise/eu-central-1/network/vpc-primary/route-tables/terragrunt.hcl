@@ -45,6 +45,27 @@ inputs = {
         Tier             = "private"
       }
     }
+    "lb-eu-central-1a" = {
+      vpc_id = dependency.vpc.outputs.vpc_id
+      tags = {
+        AvailabilityZone = "eu-central-1a"
+        Tier             = "lb"
+      }
+    }
+    "lb-eu-central-1b" = {
+      vpc_id = dependency.vpc.outputs.vpc_id
+      tags = {
+        AvailabilityZone = "eu-central-1b"
+        Tier             = "lb"
+      }
+    }
+    "lb-eu-central-1c" = {
+      vpc_id = dependency.vpc.outputs.vpc_id
+      tags = {
+        AvailabilityZone = "eu-central-1c"
+        Tier             = "lb"
+      }
+    }
     mgmt = {
       vpc_id = dependency.vpc.outputs.vpc_id
       tags = {

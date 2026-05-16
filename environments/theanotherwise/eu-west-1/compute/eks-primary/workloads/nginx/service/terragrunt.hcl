@@ -68,15 +68,14 @@ inputs = {
           dependency.subnets.outputs.subnet_ids["lb-eu-west-1b"],
           dependency.subnets.outputs.subnet_ids["lb-eu-west-1c"],
         ])
-        "service.beta.kubernetes.io/aws-load-balancer-type" = "nlb"
+        "service.beta.kubernetes.io/aws-load-balancer-target-group-attributes" = "preserve_client_ip.enabled=false"
+        "service.beta.kubernetes.io/aws-load-balancer-type"                    = "nlb"
       }
       load_balancer_source_ranges = [
-        "10.0.10.0/24",
-        "10.0.11.0/24",
-        "10.0.12.0/24",
         "10.1.20.0/24",
         "10.1.21.0/24",
         "10.1.22.0/24",
+        "10.1.255.240/28",
       ]
       wait_for_load_balancer = true
       port = {

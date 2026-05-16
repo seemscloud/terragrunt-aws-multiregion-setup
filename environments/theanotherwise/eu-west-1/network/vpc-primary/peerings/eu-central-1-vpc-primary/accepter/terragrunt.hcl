@@ -7,7 +7,7 @@ terraform {
 }
 
 dependency "vpc_peering" {
-  config_path = "../../../../eu-central-1/network/vpc-primary/peering-to-eu-west-1"
+  config_path = "../../../../../../eu-central-1/network/vpc-primary/peerings/eu-west-1-vpc-primary/requester"
 
   mock_outputs = {
     vpc_peering_connection_id = "pcx-0123456789abcdef0"

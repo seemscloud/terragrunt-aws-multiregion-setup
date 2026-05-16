@@ -36,6 +36,9 @@ dependency "route_tables" {
       "private-eu-west-1a" = "rtb-mock-private-a"
       "private-eu-west-1b" = "rtb-mock-private-b"
       "private-eu-west-1c" = "rtb-mock-private-c"
+      "lb-eu-west-1a"      = "rtb-mock-lb-a"
+      "lb-eu-west-1b"      = "rtb-mock-lb-b"
+      "lb-eu-west-1c"      = "rtb-mock-lb-c"
       mgmt                 = "rtb-mock-mgmt"
     }
   }
@@ -71,15 +74,15 @@ inputs = {
     }
     "lb-eu-west-1a" = {
       subnet_id      = dependency.subnets.outputs.subnet_ids["lb-eu-west-1a"]
-      route_table_id = dependency.route_tables.outputs.route_table_ids["private-eu-west-1a"]
+      route_table_id = dependency.route_tables.outputs.route_table_ids["lb-eu-west-1a"]
     }
     "lb-eu-west-1b" = {
       subnet_id      = dependency.subnets.outputs.subnet_ids["lb-eu-west-1b"]
-      route_table_id = dependency.route_tables.outputs.route_table_ids["private-eu-west-1b"]
+      route_table_id = dependency.route_tables.outputs.route_table_ids["lb-eu-west-1b"]
     }
     "lb-eu-west-1c" = {
       subnet_id      = dependency.subnets.outputs.subnet_ids["lb-eu-west-1c"]
-      route_table_id = dependency.route_tables.outputs.route_table_ids["private-eu-west-1c"]
+      route_table_id = dependency.route_tables.outputs.route_table_ids["lb-eu-west-1c"]
     }
     mgmt = {
       subnet_id      = dependency.subnets.outputs.subnet_ids["mgmt"]
